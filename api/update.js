@@ -1,12 +1,15 @@
-import { exec } from "child_process";
+const { exec } = require("child_process");
+const path = require("path");
 
 export default function handler(req, res) {
-  exec("node scripts/updateData.js", (error, stdout, stderr) => {
+  const scriptPath = path.join(process.cwd(), "scripts/updateData.js");
+
+  exec(`node ${scriptPath}`, (error, stdout, stderr) => {
     if (error) {
-      console.error(`❌ Erreur: ${error.message}`);
-      return res.status(500).json({ error: error.message });
+      console.error(`❌ Erreur d'exécution: ${stderr}`);
+      return res.status(500).json({ error: stderr });
     }
-    console.log(`✅ Mise à jour des notes: ${stdout}`);
-    res.status(200).json({ message: "Mise à jour effectuée !" });
+    console.log(`✅ Mise à jour réussie: ${stdout}`);
+    res.status(200).json({ message: "Mise à jour des notes réussie" });
   });
 }
