@@ -1,0 +1,12 @@
+{
+  "routes": [
+    { "src": "/api/proxy", "dest": "/api/proxy.js" },
+    { "src": "/api/update", "dest": "/api/update.js" }
+  ],
+  "functions": {
+    "api/update.js": {
+      "runtime": "nodejs18.x",
+      "includeFiles": ["scripts/updateData.js"]
+    }
+  }
+}
