@@ -3,40 +3,36 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 
 const RatingsChart = () => {
-  const [chartData, setChartData] = useState(null);
+  const [data, setData] = useState({ history: [] });
 
   useEffect(() => {
-    fetch("/public/data.json")
-      .then(response => response.json())
-      .then(data => {
-        const dates = data.history.map(entry => entry.date);
-        const androidRatings = data.history.map(entry => entry.ratings.android);
-        const iosRatings = data.history.map(entry => entry.ratings.ios);
-
-        setChartData({
-          labels: dates,
-          datasets: [
-            {
-              label: "Android",
-              data: androidRatings,
-              borderColor: "blue",
-              fill: false
-            },
-            {
-              label: "iOS",
-              data: iosRatings,
-              borderColor: "green",
-              fill: false
-            }
-          ]
-        });
-      });
+    fetch("/data.json")
+      .then((res) => res.json())
+      .then((data) => setData(data));
   }, []);
+
+  const chartData = {
+    labels: data.history.map((entry) => entry.date),
+    datasets: [
+      {
+        label: "Android",
+        data: data.history.map((entry) => entry.android),
+        borderColor: "blue",
+        fill: false,
+      },
+      {
+        label: "iOS",
+        data: data.history.map((entry) => entry.ios),
+        borderColor: "green",
+        fill: false,
+      },
+    ],
+  };
 
   return (
     <div>
-      <h2>Évolution des Notes</h2>
-      {chartData ? <Line data={chartData} /> : <p>Chargement...</p>}
+      <h2>📊 Évolution des Notes</h2>
+      <Line data={chartData} />
     </div>
   );
 };
