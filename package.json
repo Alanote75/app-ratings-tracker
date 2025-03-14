@@ -1,4 +1,21 @@
-"dependencies": {
+{
+  "name": "app-ratings-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "latest",
+    "chart.js": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "update-data": "node scripts/updateData.js"
+  },
+  "dependencies": {
   "chart.js": "^4.0.1",
   "react-chartjs-2": "^5.0.1"
+}
+
 }
